@@ -1,4 +1,4 @@
-# CEN4721 Projet 3
+# CEN4721 Project 3
 
 Project Description Here!
 
