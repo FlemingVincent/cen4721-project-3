@@ -8582,9 +8582,9 @@
     "terser" "^5.0.0"
 
 "rollup@^1.20.0 || ^2.0.0", "rollup@^1.20.0||^2.0.0", "rollup@^2.0.0", "rollup@^2.43.1":
-  "integrity" "sha512-GhutNJrvTYD6s1moo+kyq7lD9DeR5HDyXo4bDFlDSkepC9kVKY+KK/NSZFzCmeXeia3kEzVuToQmHRdugyZHxw=="
-  "resolved" "https://registry.npmjs.org/rollup/-/rollup-2.77.1.tgz"
-  "version" "2.77.1"
+  "integrity" "sha512-m/4YzYgLcpMQbxX3NmAqDvwLATZzxt8bIegO78FZLl+lAgKJBd1DRAOeEiZcKOIOPjxE6ewHWHNgGEalFXuz1g=="
+  "resolved" "https://registry.npmjs.org/rollup/-/rollup-2.77.2.tgz"
+  "version" "2.77.2"
   optionalDependencies:
     "fsevents" "~2.3.2"
 
