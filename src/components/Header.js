@@ -13,6 +13,7 @@ export default function Header() {
                     <SearchIcon/>
                     <input type="text"/>
                 </div>
+                <h2>International Gator Job Board</h2>
 
             </div>
 
