@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar'
 
 function App() {
   return (
-    <div>
+    <div classsName="app">
         <Header/>
         {/*App body*/}
         <div className="app_body">
