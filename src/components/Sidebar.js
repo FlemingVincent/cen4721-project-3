@@ -22,20 +22,17 @@ export default function Sidebar() {
 
     async function sendPost(e){
         e.preventDefault();
-        await addDoc(collection(db, "posts"),{
-            name: "User Name",
-            title: input.title,
-            tag: input.tag,
-            details: input.details,
-            timestamp: serverTimestamp()
-        }).then(()=>{
-            let newInput = input;
-            newInput.title = '';
-            newInput.tag = '';
-            newInput.details ='';
-            setInput(newInput);
-        })
-
+        if (input.title !== "" && input.tag !== "" && input.details !==""){
+            await addDoc(collection(db, "posts"),{
+                name: "Gator Girl",
+                title: input.title,
+                tag: input.tag,
+                details: input.details,
+                timestamp: serverTimestamp()
+            }).then(()=>{
+                window.location.reload(false);
+            })
+        }
     };
 
     return (
@@ -56,6 +53,7 @@ export default function Sidebar() {
                         label="Title"
                         size="small"
                         onChange={handleChange}
+                        value = {input.title}
                     />
                 </Box>
                 <Box mb={2} ml={4}>
@@ -64,6 +62,7 @@ export default function Sidebar() {
                         label="Tag"
                         size="small"
                         onChange={handleChange}
+                        value = {input.tag}
                     />
                 </Box>
                 <Box mb={2} >
@@ -75,6 +74,7 @@ export default function Sidebar() {
                         rows ={5}
                         fullWidth
                         onChange={handleChange}
+                        value = {input.details}
                     />
                 </Box>
                 <Box ml={25}><Button variant="contained" onClick={sendPost} type="submit">Post</Button></Box>
