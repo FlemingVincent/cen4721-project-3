@@ -1,12 +1,15 @@
 import React from "react";
 import "./App.css";
-import Button from "@mui/material/Button";
+import Header from './components/Header'
 
 function App() {
   return (
     <div>
-      <h1>hello world</h1>
-      <Button variant="contained">hello world</Button>
+        <Header/>
+        {/*App body*/}
+            {/*Side Bar*/}
+            {/*Posts*/}
+
     </div>
   );
 }
