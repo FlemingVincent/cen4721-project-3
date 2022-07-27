@@ -1,8 +1,43 @@
-import React from "react";
+import React, {useState} from "react";
 import {Avatar, TextField, Box, Button} from '@mui/material'
 import "./Sidebar.css";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { db } from '../firebase'
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 export default function Sidebar() {
+    const [input, setInput] = useState({
+        title: "",
+        tag:"",
+        details:"",
+    });
+
+    const handleChange = ({target})=>{
+        const {id, value} = target;
+        console.log(target)
+        setInput((prev)=>({
+            ...prev,
+            [id]:value
+        }));
+    }
+
+    async function sendPost(e){
+        e.preventDefault();
+        await addDoc(collection(db, "posts"),{
+            name: "User Name",
+            title: input.title,
+            tag: input.tag,
+            details: input.details,
+            timestamp: serverTimestamp()
+        }).then(()=>{
+            let newInput = input;
+            newInput.title = '';
+            newInput.tag = '';
+            newInput.details ='';
+            setInput(newInput);
+        })
+
+    };
+
     return (
         <div className="sidebar">
             <div className="sidebar_top">
@@ -17,32 +52,32 @@ export default function Sidebar() {
                 <Box mb={2}>
                     <BorderColorIcon className="sidebar_icon"/>
                     <TextField
-                        id="outlined-title"
+                        id="title"
                         label="Title"
                         size="small"
+                        onChange={handleChange}
                     />
-
                 </Box>
                 <Box mb={2} ml={4}>
                     <TextField
-                        id="outlined-tag"
+                        id="tag"
                         label="Tag"
                         size="small"
+                        onChange={handleChange}
                     />
                 </Box>
                 <Box mb={2} >
                     <TextField
-                        id="outlined-detail"
+                        id="details"
                         label="Detail"
                         size="small"
                         multiline
                         rows ={5}
                         fullWidth
+                        onChange={handleChange}
                     />
                 </Box>
-                <Box ml={25}><Button variant="contained">Post</Button></Box>
-
-
+                <Box ml={25}><Button variant="contained" onClick={sendPost} type="submit">Post</Button></Box>
             </div>
 
         </div>
