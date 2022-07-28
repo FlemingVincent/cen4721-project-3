@@ -3,13 +3,18 @@ import "./Feed.css";
 import { db } from '../../firebase'
 import Grid from '@mui/material/Grid';
 import Post from './Post/Post';
+import { query, doc, collection, onSnapshot, getDocs, orderBy } from "firebase/firestore";
 
 export default function Feed() {
 
   const [posts, setPosts] = useState([])
 
   useEffect(() => {
-    db.collection('posts').onSnapshot(snapshot => {
+
+    const postItems = query(collection(db, 'posts'), orderBy('timestamp', 'desc'))
+
+    onSnapshot(postItems, (snapshot) => {
+      console.log("snapshot!!!")
       setPosts(snapshot.docs.map(doc => (
         {
           id: doc.id,
@@ -18,8 +23,6 @@ export default function Feed() {
       )))
     })
   }, [])
-
-  console.log(posts)
 
   return (
     <div className='container'>
@@ -33,3 +36,13 @@ export default function Feed() {
     </div>
   )
 }
+
+
+// db.collection('posts').onSnapshot(snapshot => {
+//   setPosts(snapshot.docs.map(doc => (
+//     {
+//       id: doc.id,
+//       data: doc.data()
+//     }
+//   )))
+// })

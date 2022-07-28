@@ -19,7 +19,7 @@ export default function Post({post}) {
             <div className='informationContainer'>
                 <div className='subInformatioContainer'>
                     <div className='title'>   
-                        {post?.data.title}
+                        {post?.data?.title}
                     </div>
                     <div className='userInfo'>
                         <div className='pictureContainer'>
@@ -30,7 +30,11 @@ export default function Post({post}) {
                                 {post?.data.name}
                             </div>
                             <div className='date'>
-                                {new Date(post?.data.timestamp.seconds * 1000).toISOString().slice(0, 10)}
+                                {post?.data?.timestamp != null ? 
+                                    new Date(post?.data?.timestamp.seconds * 1000).toISOString().slice(0, 10)
+                                    : 
+                                    ''
+                                }
                             </div>
                         </div>
                     </div>
@@ -39,13 +43,13 @@ export default function Post({post}) {
                 
                     <div>
                         <div className='tagContainer'>
-                            <div className='tag'>{post?.data.tag}</div>
+                            <div className='tag'>{post?.data?.tag}</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className='descriptionContainer'>
-                <p>{post?.data.details}</p>
+                <p>{post?.data?.details}</p>
             </div>
             <div className='buttonsContainer'>
                 <div className='bookmarkContainer'>
