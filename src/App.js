@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
-import Header from './components/Header'
-import Sidebar from './components/Sidebar'
+import Feed from "./components/Feed/Feed";
+import Header from './components/Header/Header'
+import Sidebar from './components/Sidebar/Sidebar'
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
         <Header/>
         {/*App body*/}
         <div className="app_body">
-            {/*Posts Note: make the post area position:sticky flex:0.8 side bar would be pushed to the right*/}
+            <Feed />
             <Sidebar/>
         </div>
     </div>
