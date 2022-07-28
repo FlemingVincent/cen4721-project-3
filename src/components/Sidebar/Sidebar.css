@@ -1,12 +1,11 @@
 .sidebar{
     position:sticky;
-    top: 80px;
+    top: calc(80px + 3%);
     flex:0.2;
     border-radius:10px;
     text-align: center;
     height: fit-content;
-    margin-top: 5%;
-
+    margin-top: 3%;
 }
 
 .sidebar_avatar {

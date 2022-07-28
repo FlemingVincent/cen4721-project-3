@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Avatar, TextField, Box, Button} from '@mui/material'
 import "./Sidebar.css";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { db } from '../firebase'
+import { db } from '../../firebase'
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 export default function Sidebar() {
     const [input, setInput] = useState({
@@ -13,7 +13,6 @@ export default function Sidebar() {
 
     const handleChange = ({target})=>{
         const {id, value} = target;
-        console.log(target)
         setInput((prev)=>({
             ...prev,
             [id]:value
@@ -23,14 +22,17 @@ export default function Sidebar() {
     async function sendPost(e){
         e.preventDefault();
         if (input.title !== "" && input.tag !== "" && input.details !==""){
+            setInput({
+                title: "",
+                tag:"",
+                details:"",
+            })
             await addDoc(collection(db, "posts"),{
                 name: "Gator Girl",
                 title: input.title,
                 tag: input.tag,
                 details: input.details,
                 timestamp: serverTimestamp()
-            }).then(()=>{
-                window.location.reload(false);
             })
         }
     };
