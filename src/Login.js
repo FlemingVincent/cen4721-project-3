@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { login } from "./features/counter/userSlice";
 import { auth } from "./firebase";
 import "./Login.css";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+
 
 function Login() {
 const [email, setEmail] = useState("");
@@ -19,9 +21,10 @@ const dispatch = useDispatch();
             return alert("Please enter a full name!");
         }
 
-        auth.currentUserWithEmailAndPassword(email,password)
+
+        createUserWithEmailAndPassword(auth, email, password)
         .then((userAuth) => {
-            userAuth.user.updateProfile({
+            updateProfile(userAuth.user,{
                 displayName: name,
                 photoURL: profilePic,
             })
