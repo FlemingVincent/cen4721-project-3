@@ -1,34 +1,16 @@
 import React, {useState, useEffect} from "react";
-//import Login from "../Login";
 import "./App.css";
 import Feed from "./components/Feed/Feed";
 import Header from './components/Header/Header'
 import Login from "./Login";
 import Sidebar from './components/Sidebar/Sidebar'
+import {selectUser} from "./features/counter/userSlice"
+import {useSelector} from "react-redux";
 
 
 function App() {
+    const user = useSelector(selectUser);
 
-  // const [windowSize, setWindowSize] = useState(getWindowSize())
-
-  // function getWindowSize() {
-  //   const {innerWidth, innerHeight} = window;
-  //   return {innerWidth, innerHeight};
-  // }
-
-  // useEffect(() => {
-  //   function handleWindowResize() {
-  //     setWindowSize(getWindowSize());
-  //   }
-
-  //   window.addEventListener('resize', handleWindowResize);
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleWindowResize);
-  //   };
-  // }, []);
-
-  // console.log(windowSize.innerHeight)
 
   return (
     <div classsName="app">
