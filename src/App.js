@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from "react";
+//import Login from "../Login";
 import "./App.css";
 import Feed from "./components/Feed/Feed";
 import Header from './components/Header/Header'
+import Login from "./Login";
 import Sidebar from './components/Sidebar/Sidebar'
+
 
 function App() {
 
@@ -30,11 +33,15 @@ function App() {
   return (
     <div classsName="app">
         <Header/>
-        {/*App body*/}
+
+        {!user ? (
+        <Login />
+        ) : (
         <div className="app_body">
             <Feed />
             <Sidebar/>
         </div>
+      ) }
     </div>
   );
 }
