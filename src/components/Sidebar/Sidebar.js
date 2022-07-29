@@ -4,7 +4,11 @@ import "./Sidebar.css";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import { db } from '../../firebase'
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/counter/userSlice";
 export default function Sidebar() {
+    const user = useSelector(selectUser);
+
     const [input, setInput] = useState({
         title: "",
         tag:"",
@@ -42,9 +46,11 @@ export default function Sidebar() {
             <div className="sidebar_top">
                 <img src="https://bq9mowy10i-flywheel.netdna-ssl.com/wp-content/uploads/2016/12/Powder-Blue-Background-300x300.jpg"
                      alt=""/>
-                <Avatar className="sidebar_avatar"/>
-                <h2>Name</h2>
-                <h4>Email</h4>
+                <Avatar src={user.photoUrl}className="sidebar_avatar">
+                    {user.email[0]} 
+                </Avatar>
+                <h2>{user.displayName}</h2>
+                <h4>{user.email}</h4>
             </div>
 
             <div className="sidebar_bottom">
