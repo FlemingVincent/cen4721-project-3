@@ -3,8 +3,18 @@ import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
 import HomeIcon from '@mui/icons-material/Home';
 import HeaderOption from './HeaderOption';
+import { useDispatch, useSelector } from 'react-redux';
+import { auth } from '../../firebase';
+import { logout, selectUser } from '../../features/counter/userSlice';
 
 export default function Header() {
+    //const user = useSelector(selectUser);
+    const dispatch = useDispatch();
+
+    const logoutOfApp = () => {
+        dispatch(logout());
+        auth.signOut();
+    };
     return (
         <div className='header'>
             <div className='header_left'>
@@ -19,8 +29,10 @@ export default function Header() {
 
             <div className='header_right'>
                 <HeaderOption Icon={HomeIcon}title='Home'/>
-                <HeaderOption avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS78eT-Si-XCF7_nah4Trcsjvr-ypUKPnf5_vclWITQ1bjJ-Q6zwPQRTqT_pZaZudyY9LI&usqp=CAU"
-                              title='Me'/>
+                <HeaderOption 
+                avatar={true}
+                              title='Me'
+                              onClick={logoutOfApp}/>
 
 
 
