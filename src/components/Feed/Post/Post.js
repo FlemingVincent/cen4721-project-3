@@ -7,9 +7,11 @@ import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import { indigo, yellow } from '@mui/material/colors';
 import { maxWidth } from '@mui/system';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../../features/counter/userSlice';
 
 export default function Post({post}) {
-
+    // const user = useSelector(selectUser);
   const [liked, setLiked] = useState(false)
   const [bookmarked, setBookmarked] = useState(false)
 
