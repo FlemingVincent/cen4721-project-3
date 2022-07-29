@@ -1,19 +1,18 @@
 import React, {useState} from 'react'
 import "./Post.css";
-import {Card, CardActions, CardContent, Typography, Avatar, TextField, Box, Button, IconButton} from '@mui/material'
-import MoreHorizRoundedIcon from '@mui/icons-material/MoreHorizRounded';
+import {Card, Button, IconButton} from '@mui/material'
 import BookmarkRoundedIcon from '@mui/icons-material/BookmarkRounded';
 import ThumbUpRoundedIcon from '@mui/icons-material/ThumbUpRounded';
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import { indigo, yellow } from '@mui/material/colors';
-import { maxWidth } from '@mui/system';
-import { useSelector } from 'react-redux';
-import { selectUser } from '../../../features/counter/userSlice';
+import { useUser } from '../../../hooks/useUser';
 
 export default function Post({post}) {
-    // const user = useSelector(selectUser);
+
   const [liked, setLiked] = useState(false)
   const [bookmarked, setBookmarked] = useState(false)
+
+  const user = useUser(post?.data.user).data
 
   return (
     <Card sx={{height: 400, minWidth: 400, maxWidth: 600}}>
@@ -25,11 +24,14 @@ export default function Post({post}) {
                     </div>
                     <div className='userInfo'>
                         <div className='pictureContainer'>
-                            
+                        <img 
+                            src={user?.photoUrl} 
+                            className='profilePic'
+                        />
                         </div>
                         <div className='extraInfo'>
                             <div className='userName'>
-                                {post?.data.name}
+                                {user?.displayName}
                             </div>
                             <div className='date'>
                                 {post?.data?.timestamp != null ? 

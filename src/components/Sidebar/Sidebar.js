@@ -2,10 +2,9 @@ import React, {useState} from "react";
 import {Avatar, TextField, Box, Button} from '@mui/material'
 import "./Sidebar.css";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { db } from '../../firebase'
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/counter/userSlice";
+import { sendPost } from "../../services/posts";
 export default function Sidebar() {
     const user = useSelector(selectUser);
 
@@ -23,7 +22,7 @@ export default function Sidebar() {
         }));
     }
 
-    async function sendPost(e){
+    async function handleSendPost(e){
         e.preventDefault();
         if (input.title !== "" && input.tag !== "" && input.details !==""){
             setInput({
@@ -31,13 +30,7 @@ export default function Sidebar() {
                 tag:"",
                 details:"",
             })
-            await addDoc(collection(db, "posts"),{
-                name: "Gator Girl",
-                title: input.title,
-                tag: input.tag,
-                details: input.details,
-                timestamp: serverTimestamp()
-            })
+            sendPost(user?.uid, input.title, input.tag, input.details)
         }
     };
 
@@ -85,7 +78,7 @@ export default function Sidebar() {
                         value = {input.details}
                     />
                 </Box>
-                <Box ml={25}><Button variant="contained" onClick={sendPost} type="submit">Post</Button></Box>
+                <Box ml={25}><Button variant="contained" onClick={handleSendPost} type="submit">Post</Button></Box>
             </div>
 
         </div>
