@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "./features/counter/userSlice";
-import { auth } from "./firebase";
+import { login } from "../../features/counter/userSlice";
+import { auth } from "../../firebase";
 import "./Login.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../features/counter/userSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { db } from '../../firebase'
 
 
 function Login() {
+
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [name, setName] = useState("");
 const [profilePic, setProfilePic] = useState("");
+
+const user = useSelector(selectUser);
+
 const dispatch = useDispatch();
     const loginToApp = (e) => {
         e.preventDefault();
@@ -39,16 +47,22 @@ const dispatch = useDispatch();
         .then((userAuth) => {
             updateProfile(userAuth.user,{
                 displayName: name,
-                photoURL: profilePic,
+                photoURL: (profilePic.length > 0) ? profilePic : null,
             })
             .then(() =>{
                 dispatch(login({
                     email: userAuth.user.email,
                     uid: userAuth.user.uid,
                     displayName: name,
-                    photoUrl: profilePic
+                    photoUrl: (profilePic.length > 0) ? profilePic : null
                 }));
-            });
+                setDoc(doc(db, "users", userAuth.user.uid),{
+                    email: userAuth.user.email,
+                    uid: userAuth.user.uid,
+                    displayName: name,
+                    photoUrl: (profilePic.length > 0) ? profilePic : null
+                })
+            })
         })
         .catch(error => alert(error));
     };

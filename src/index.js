@@ -5,14 +5,21 @@ import { store } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchInterval: false, staleTime: Infinity } }
+})
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
     </Provider>
   </React.StrictMode>
 );
