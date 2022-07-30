@@ -50,9 +50,11 @@ export const getTimeSincePost = (timestamp) => {
 
 export const getHotValue = (score, date) => {
 
+    const dateToUse = (date == null) ? new Date() : date
+
     var order = log10(Math.max(Math.abs(score), 1));
     var sign = score>0 ? 1 : score<0 ? -1 : 0;
-    var seconds = epochSeconds(date) - 1134028003;
+    var seconds = epochSeconds(dateToUse) - 1134028003;
     var product = order + sign * seconds / 45000;
     return Math.round(product*10000000)/10000000;
 }
