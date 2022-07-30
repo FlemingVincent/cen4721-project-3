@@ -60,6 +60,9 @@ const dispatch = useDispatch();
                     email: userAuth.user.email,
                     uid: userAuth.user.uid,
                     displayName: name,
+                    stats: {
+                        bookmarksCount: 0
+                    },
                     photoUrl: (profilePic.length > 0) ? profilePic : null
                 })
             })
