@@ -6,7 +6,8 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../features/counter/userSlice";
 import { sendPost } from "../../services/posts";
 export default function Sidebar() {
-    const user = useSelector(selectUser);
+
+    const currentUser = useSelector(selectUser);
 
     const [input, setInput] = useState({
         title: "",
@@ -30,7 +31,7 @@ export default function Sidebar() {
                 tag:"",
                 details:"",
             })
-            sendPost(user?.uid, input.title, input.tag, input.details)
+            sendPost(currentUser?.uid, input.title, input.tag, input.details)
         }
     };
 
@@ -39,11 +40,11 @@ export default function Sidebar() {
             <div className="sidebar_top">
                 <img src="https://bq9mowy10i-flywheel.netdna-ssl.com/wp-content/uploads/2016/12/Powder-Blue-Background-300x300.jpg"
                      alt=""/>
-                <Avatar src={user.photoUrl}className="sidebar_avatar">
-                    {user.email[0]} 
+                <Avatar src={currentUser.photoUrl}className="sidebar_avatar">
+                    {currentUser.email[0]} 
                 </Avatar>
-                <h2>{user.displayName}</h2>
-                <h4>{user.email}</h4>
+                <h2>{currentUser.displayName}</h2>
+                <h4>{currentUser.email}</h4>
             </div>
 
             <div className="sidebar_bottom">

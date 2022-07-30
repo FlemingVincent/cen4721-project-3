@@ -21,7 +21,7 @@ export default function Feed() {
           <ClipLoader size={20} color='gray' loading={true}/>
         </div>
         :
-        <Grid className='grid' container alignItems="stretch" spacing={3}>
+        <Grid style={{}} className='grid' container alignItems="stretch" spacing={3}>
           {posts.map((post) => (
             <Grid key={post.id} item xs={12} sm={12} md={12} lg={6} xl={4}>
               <Post post={post}/>
