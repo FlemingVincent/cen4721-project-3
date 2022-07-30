@@ -18,7 +18,7 @@ const [password, setPassword] = useState("");
 const [name, setName] = useState("");
 const [profilePic, setProfilePic] = useState("");
 
-const user = useSelector(selectUser);
+const currentUser = useSelector(selectUser);
 
 const dispatch = useDispatch();
     const loginToApp = (e) => {

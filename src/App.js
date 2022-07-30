@@ -13,7 +13,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 
 function App() {
 
-  const user = useSelector(selectUser);
+  const currentUser = useSelector(selectUser);
   const dispatch = useDispatch();
 
   const [loaded, setLoaded] = useState(false)
@@ -48,7 +48,7 @@ function App() {
         :
         <>
           <Header/>
-          {!user ? 
+          {!currentUser ? 
           <Login />
           : 
           <div className="app_body">

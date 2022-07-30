@@ -8,7 +8,8 @@ import { auth } from '../../firebase';
 import { logout, selectUser } from '../../features/counter/userSlice';
 
 export default function Header() {
-    const user = useSelector(selectUser);
+    
+    const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
 
     const logoutOfApp = () => {
