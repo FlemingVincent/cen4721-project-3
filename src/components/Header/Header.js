@@ -8,7 +8,8 @@ import { auth } from '../../firebase';
 import { logout, selectUser } from '../../features/counter/userSlice';
 
 export default function Header() {
-    //const user = useSelector(selectUser);
+    
+    const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
 
     const logoutOfApp = () => {
@@ -23,7 +24,7 @@ export default function Header() {
                     <SearchIcon/>
                     <input type="text"/>
                 </div>
-                <h2>International Gator Job Board</h2>
+                <h2>International Gator Job Board</h2> 
 
             </div>
 

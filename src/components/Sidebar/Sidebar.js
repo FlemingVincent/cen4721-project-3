@@ -2,12 +2,12 @@ import React, {useState} from "react";
 import {Avatar, TextField, Box, Button} from '@mui/material'
 import "./Sidebar.css";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { db } from '../../firebase'
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/counter/userSlice";
+import { sendPost } from "../../services/posts";
 export default function Sidebar() {
-    const user = useSelector(selectUser);
+
+    const currentUser = useSelector(selectUser);
 
     const [input, setInput] = useState({
         title: "",
@@ -23,7 +23,7 @@ export default function Sidebar() {
         }));
     }
 
-    async function sendPost(e){
+    async function handleSendPost(e){
         e.preventDefault();
         if (input.title !== "" && input.tag !== "" && input.details !==""){
             setInput({
@@ -31,13 +31,7 @@ export default function Sidebar() {
                 tag:"",
                 details:"",
             })
-            await addDoc(collection(db, "posts"),{
-                name: "Gator Girl",
-                title: input.title,
-                tag: input.tag,
-                details: input.details,
-                timestamp: serverTimestamp()
-            })
+            sendPost(currentUser?.uid, input.title, input.tag, input.details)
         }
     };
 
@@ -46,11 +40,11 @@ export default function Sidebar() {
             <div className="sidebar_top">
                 <img src="https://bq9mowy10i-flywheel.netdna-ssl.com/wp-content/uploads/2016/12/Powder-Blue-Background-300x300.jpg"
                      alt=""/>
-                <Avatar src={user.photoUrl}className="sidebar_avatar">
-                    {user.email[0]} 
+                <Avatar src={currentUser.photoUrl}className="sidebar_avatar">
+                    {currentUser.email[0]} 
                 </Avatar>
-                <h2>{user.displayName}</h2>
-                <h4>{user.email}</h4>
+                <h2>{currentUser.displayName}</h2>
+                <h4>{currentUser.email}</h4>
             </div>
 
             <div className="sidebar_bottom">
@@ -85,7 +79,7 @@ export default function Sidebar() {
                         value = {input.details}
                     />
                 </Box>
-                <Box ml={25}><Button variant="contained" onClick={sendPost} type="submit">Post</Button></Box>
+                <Box ml={25}><Button variant="contained" onClick={handleSendPost} type="submit">Post</Button></Box>
             </div>
 
         </div>

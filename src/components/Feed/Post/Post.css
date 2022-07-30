@@ -11,6 +11,26 @@
     align-items: center;
     justify-content: space-between;
 }
+.subInformatioContainer{
+    display: flex;
+    flex: 0.1;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    left: 1%;
+    top: 2%
+}
+.subInformatioContainer2{
+    display: flex;
+    flex: 0.8;
+    flex-direction: column;
+    padding-left: 6%;
+    padding-top: 1%;
+}
+.subInformatioContainer3{
+    display: flex;
+    flex: 0.1;
+}
 .title{
     font-weight: bold;
     font-size: 20px;
@@ -27,11 +47,17 @@
     background-color: lightgray;
     border-radius: 20px;
 }
+.profilePic{
+    width: auto;
+    max-width: 100%;
+    object-fit:cover;
+    border-radius: 25px;
+}
 .extraInfo{
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 5px;
+    padding-left: 8px;
 }
 .userName{
     font-weight: 300;
@@ -52,14 +78,14 @@
     padding-top: 3px;
     padding-bottom: 3px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     color: rgba(126, 155, 255, 1);
     text-align: center;
 }
 .descriptionContainer{
     display: flex;
     flex: 0.7;
-    padding-top: 10px;
+    padding-top: 15px;
     padding-bottom: 5px;
 }
 .buttonsContainer{
@@ -72,6 +98,8 @@
 }
 .bookmarkContainer{
     margin-right: 10px;
+    border-radius: 100px;
+    padding-bottom: 2px;
 }
 .likeContainer{
     margin-left: 10px;
@@ -96,6 +124,7 @@
 .commentText{
     font-size: 12px;
     padding-left: 5px;
+    padding-bottom: 3px;
     font-weight: 700;
     color: rgba(126, 155, 255, 1);
 }
