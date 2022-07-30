@@ -22,13 +22,18 @@ export default function Feed() {
 
   useEffect(() => {
     if (posts != null) {
-      setHotPosts([...posts]?.sort((a, b) => (getHotValue(a?.data?.votesCount, a?.data?.timestamp.toDate()) > getHotValue(b?.data.votesCount, b?.data.timestamp.toDate())) ? -1 : 1))
+      setHotPosts([...posts]?.sort((a, b) => (getHotValue(a?.data?.votesCount, a?.data?.timestamp?.toDate()) > getHotValue(b?.data.votesCount, b?.data.timestamp?.toDate())) ? -1 : 1))
+      if (currentPostsType == 'new') {
+        setCurrentPosts(posts)
+      }
     }
   }, [posts])
 
   useEffect(() => {
     if (hotPosts != null) {
-      setCurrentPosts(hotPosts)
+      if (currentPostsType != 'new') {
+        setCurrentPosts(hotPosts)
+      }
     }
   }, [hotPosts])
 
