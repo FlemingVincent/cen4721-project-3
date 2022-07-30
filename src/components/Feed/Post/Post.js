@@ -9,7 +9,7 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import { indigo, yellow, deepOrange, red } from '@mui/material/colors';
 import { useUser } from '../../../hooks/useUser';
 import { getBookmarkByPostId, getVoteByPostId, updateBookmark, updateVote } from '../../../services/posts';
-import {selectUser} from "../../../features/counter/userSlice"
+import {selectUser} from "../../../features/userSlice"
 import {useSelector} from "react-redux";
 import { throttle } from 'throttle-debounce';
 import { getTimeSincePost } from '../../../services/helpers';

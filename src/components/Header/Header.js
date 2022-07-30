@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import HeaderOption from './HeaderOption';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../../firebase';
-import { logout, selectUser } from '../../features/counter/userSlice';
+import { logout, selectUser } from '../../features/userSlice';
 
 export default function Header() {
     

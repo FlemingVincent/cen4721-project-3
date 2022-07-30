@@ -2,7 +2,7 @@ import React from 'react'
 import './HeaderOption.css'
 import {Avatar} from '@mui/material'
 import { useSelector } from 'react-redux';
-import { selectUser } from '../../features/counter/userSlice';
+import { selectUser } from '../../features/userSlice';
 
 export default function HeaderOption({avatar, Icon, title, onClick}) {
     const currentUser = useSelector(selectUser);

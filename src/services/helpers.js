@@ -47,3 +47,18 @@ export const getTimeSincePost = (timestamp) => {
     }
 
 }
+
+export const getHotValue = (score, date) => {
+
+    var order = log10(Math.max(Math.abs(score), 1));
+    var sign = score>0 ? 1 : score<0 ? -1 : 0;
+    var seconds = epochSeconds(date) - 1134028003;
+    var product = order + sign * seconds / 45000;
+    return Math.round(product*10000000)/10000000;
+}
+function log10(val){
+    return Math.log(val) / Math.LN10;
+  }
+  function epochSeconds(d){
+      return (d.getTime() - new Date(1970,1,1).getTime())/1000;
+  }

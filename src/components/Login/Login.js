@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/counter/userSlice";
+import { login } from "../../features/userSlice";
 import { auth } from "../../firebase";
 import "./Login.css";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../features/counter/userSlice";
+import { selectUser } from "../../features/userSlice";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";

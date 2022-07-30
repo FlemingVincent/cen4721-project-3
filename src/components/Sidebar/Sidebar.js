@@ -1,13 +1,23 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Avatar, TextField, Box, Button} from '@mui/material'
 import "./Sidebar.css";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
-import { useSelector } from "react-redux";
-import { selectUser } from "../../features/counter/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser } from "../../features/userSlice";
 import { sendPost } from "../../services/posts";
+import WhatshotRoundedIcon from '@mui/icons-material/WhatshotRounded';
+import WhatshotOutlinedIcon from '@mui/icons-material/WhatshotOutlined';
+import NewReleasesRoundedIcon from '@mui/icons-material/NewReleasesRounded';
+import NewReleasesOutlinedIcon from '@mui/icons-material/NewReleasesOutlined';
+import { indigo, yellow, deepOrange, red } from '@mui/material/colors';
+import { changePostsType } from "../../features/postsTypeSlice";
+
 export default function Sidebar() {
 
     const currentUser = useSelector(selectUser);
+    const [postsType, setPostsType] = useState('hot')
+
+    const dispatch = useDispatch();
 
     const [input, setInput] = useState({
         title: "",
@@ -35,8 +45,39 @@ export default function Sidebar() {
         }
     };
 
+    const handlePostsTypeChange = (type) => {
+        dispatch(changePostsType(type))
+        setPostsType(type)
+    }
+
     return (
         <div className="sidebar">
+            <div className="buttonsContainer">
+                <div className={(postsType == 'hot') ? 'buttonContainerSelected' : 'buttonContainerNotSelected'}>
+                    <Button sx={{flex: 1}} onClick={() => handlePostsTypeChange('hot')}>
+                        <div className='button'>
+                            {postsType == 'hot' ?
+                                <WhatshotRoundedIcon sx={{fontSize: 30, color: indigo['A400']}}/>
+                                :
+                                <WhatshotOutlinedIcon sx={{fontSize: 30, color: indigo['A100']}}/>
+                            }
+                            <p className={(postsType == 'hot') ? 'buttonTextSelected' : 'buttonTextNotSelected'}>HOT</p>
+                        </div>
+                    </Button>
+                </div>
+                <div className={(postsType == 'new') ? 'buttonContainerSelected' : 'buttonContainerNotSelected'}>
+                    <Button sx={{flex: 1}} onClick={() => handlePostsTypeChange('new')}>
+                        <div className='button'>
+                            {postsType == 'new' ?
+                                <NewReleasesRoundedIcon sx={{fontSize: 30, color: indigo['A400']}}/>
+                                :
+                                <NewReleasesOutlinedIcon sx={{fontSize: 30, color: indigo['A100']}}/>
+                            }
+                            <p className={(postsType == 'new') ? 'buttonTextSelected' : 'buttonTextNotSelected'}>NEW</p>
+                        </div>
+                    </Button>
+                </div>
+            </div>
             <div className="sidebar_top">
                 <img src="https://bq9mowy10i-flywheel.netdna-ssl.com/wp-content/uploads/2016/12/Powder-Blue-Background-300x300.jpg"
                      alt=""/>

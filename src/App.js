@@ -4,10 +4,10 @@ import Feed from "./components/Feed/Feed";
 import Header from './components/Header/Header'
 import Login from "./components/Login/Login";
 import Sidebar from './components/Sidebar/Sidebar'
-import {login, selectUser} from "./features/counter/userSlice"
+import {login, selectUser} from "./features/userSlice"
 import {useDispatch, useSelector} from "react-redux";
 import { auth } from "./firebase";
-import { logout } from "./features/counter/userSlice";
+import { logout } from "./features/userSlice";
 import BeatLoader from "react-spinners/BeatLoader";
 
 
