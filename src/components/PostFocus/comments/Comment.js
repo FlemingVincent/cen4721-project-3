@@ -1,19 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useUser } from '../../../hooks/useUser'
 import { getTimeSincePost } from '../../../services/helpers'
-import {Card, Button, IconButton} from '@mui/material'
+import {Card, Button, IconButton, makeStyles} from '@mui/material'
 import ChatBubbleRoundedIcon from '@mui/icons-material/ChatBubbleRounded';
 import ReplyRoundedIcon from '@mui/icons-material/ReplyRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
+import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
 import CommentForm from './CommentForm';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/userSlice';
+import { indigo } from '@mui/material/colors';
 
 export default function Comment({comment, replies, deleteComment, addComment, activeComment, setActiveComment, parentId = null, updateComment}) {
 
   const user = useUser(comment?.user).data
   const currentUser = useSelector(selectUser)
+
+  const [showReplies, setShowReplies] = useState(false)
 
   const fiveMinutes = 300000
   const timePassed = new Date() - new Date(comment?.timestamp.seconds * 1000) > fiveMinutes
@@ -56,6 +61,16 @@ export default function Comment({comment, replies, deleteComment, addComment, ac
             )}
         </div>
         <div className='commentActions'>
+            {replies.length > 0 && (
+                <Button sx={{textTransform: 'none'}}  className='showRepliescontainer' onClick={() => setShowReplies(!showReplies)} disableRipple>
+                    {showReplies ?
+                        <ArrowDropUpRoundedIcon sx={{color: indigo['A200']}}/>
+                        :
+                        <ArrowDropDownRoundedIcon sx={{color: indigo['A200']}}/>
+                    }
+                    <div className='showRepliesText'>{showReplies ? 'Hide' : 'Show'} {(replies.length > 1) ? replies.length + " replies" : "reply"}</div>
+                </Button>
+            )}
             <div className='ButtonContainer'>
                 <Button size="small" sx={{color: 'gray', textTransform: 'none'}} onClick={() => {
                     if (JSON.stringify(activeComment) === JSON.stringify({id: comment.id, type: 'replying'})) {
@@ -105,7 +120,7 @@ export default function Comment({comment, replies, deleteComment, addComment, ac
                 hasCancelButton
             />
         )}
-        {replies.length > 0 && (
+        {replies.length > 0 && showReplies && (
             <div className='replies'>
                 {replies.map((reply) => (
                     <Comment 
