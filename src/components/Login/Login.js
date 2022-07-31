@@ -9,6 +9,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { collection, doc, setDoc } from "firebase/firestore";
 import { db } from '../../firebase'
+import {useNavigate} from 'react-router-dom'
 
 
 function Login() {
@@ -19,7 +20,7 @@ const [name, setName] = useState("");
 const [profilePic, setProfilePic] = useState("");
 
 const currentUser = useSelector(selectUser);
-
+let navigate =useNavigate();
 const dispatch = useDispatch();
     const loginToApp = (e) => {
         e.preventDefault();
@@ -32,9 +33,10 @@ const dispatch = useDispatch();
                 uid: userAuth.user.uid,
                 displayName: userAuth.user.displayName,
                 profileUrl: userAuth.user.photoURL,
-            })
-            );
+            }))
+            navigate("/")
         }).catch((error) => alert(error));
+
     };
         
     const register = () => {
@@ -66,6 +68,7 @@ const dispatch = useDispatch();
                     photoUrl: (profilePic.length > 0) ? profilePic : null
                 })
             })
+            navigate("/")
         })
         .catch(error => alert(error));
     };

@@ -1,15 +1,14 @@
 import React, {useState, useEffect, useInsertionEffect} from "react";
 import "./App.css";
-import Feed from "./components/Feed/Feed";
 import Header from './components/Header/Header'
 import Login from "./components/Login/Login";
-import Sidebar from './components/Sidebar/Sidebar'
+import Home from "./pages/home"
 import {login, selectUser} from "./features/userSlice"
 import {useDispatch, useSelector} from "react-redux";
 import { auth } from "./firebase";
 import { logout } from "./features/userSlice";
 import BeatLoader from "react-spinners/BeatLoader";
-
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 
 function App() {
 
@@ -47,15 +46,18 @@ function App() {
         </div>
         :
         <>
+          <Router>
           <Header/>
           {!currentUser ? 
           <Login />
-          : 
-          <div className="app_body">
-              <Feed />
-              <Sidebar/>
-          </div>
+          :
+
+              <Routes>
+                <Route path="/" element={<Home/>}/>
+              </Routes>
+
         }
+          </Router>
         </>
       }
     </div>
