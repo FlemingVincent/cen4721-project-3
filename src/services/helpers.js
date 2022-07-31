@@ -1,6 +1,6 @@
 export const getTimeSincePost = (timestamp) => {
 
-    let storedDate =  new Date(timestamp.toDate())
+    let storedDate =  new Date(timestamp.seconds * 1000)
     let nowDate = new Date()
     let diff = (nowDate.getTime() - storedDate.getTime())
 
@@ -13,28 +13,28 @@ export const getTimeSincePost = (timestamp) => {
     years   = Math.floor(days / 365);
 
     if (years > 1) {
-        return years + "years ago" 
+        return years + " years ago" 
     }
     else if (years > 0) {
-        return years + "year ago" 
+        return years + " year ago" 
     }
     else if (months > 1) {
-        return months + "months ago" 
+        return months + " months ago" 
     }
     else if (months > 0) {
-        return months + "month ago" 
+        return months + " month ago" 
     }
     else if (weeks > 1) {
-        return weeks + "weeks ago" 
+        return weeks + " weeks ago" 
     }
     else if (weeks > 0) {
-        return weeks + "week ago" 
+        return weeks + " week ago" 
     }
     else if (days > 1) {
-        return days + "days ago" 
+        return days + " days ago" 
     }
     else if (days > 0) {
-        return days + "day ago" 
+        return days + " day ago" 
     }
     else if (hours > 1) {
         return hours + "h ago" 
@@ -42,8 +42,14 @@ export const getTimeSincePost = (timestamp) => {
     else if (hours > 0) {
         return hours + "h ago" 
     }
+    else if (minutes > 1) {
+        return minutes + " mins ago" 
+    }
+    else if (minutes > 0) {
+        return minutes + "min ago" 
+    }
     else {
-        return "less than 1h ago"
+        return "< 1min ago"
     }
 
 }

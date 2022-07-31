@@ -16,3 +16,10 @@
     justify-content: center;
     height: 100vh
 }
+
+*{
+-ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+display: none;
+}

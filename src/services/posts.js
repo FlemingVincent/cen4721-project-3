@@ -1,4 +1,4 @@
-import { query, collection, onSnapshot, orderBy, addDoc, serverTimestamp, getDoc, doc, deleteDoc, setDoc, updateDoc, increment } from "firebase/firestore";
+import { query, collection, onSnapshot, orderBy, addDoc, serverTimestamp, getDoc, doc, deleteDoc, setDoc, updateDoc, increment, getDocs } from "firebase/firestore";
 import { db } from '../firebase'
 
 export const getFeed = (setPosts) => {
@@ -25,6 +25,7 @@ export const sendPost = (user, title, tag, details) => {
         tag: tag,
         details: details,
         votesCount: 0,
+        commentsCount: 0,
         timestamp: serverTimestamp()
     })
 
@@ -96,5 +97,68 @@ export const updateVote = (postId, uid, currentVoteStateInst, type) => {
         })
     }
 }
-
+ 
 }
+
+export const getComments= (postId) => new Promise((resolve, reject) => {
+
+  // const postComments = query(collection(db, 'posts', postId, 'comments'), orderBy('timestamp', 'desc'))
+
+  const postComments = query(collection(db, 'posts', postId, 'comments'))
+
+  getDocs(postComments)
+    .then((res) => {
+      let comments = res.docs.map((value) => {
+        const id = value.id;
+        const data = value.data();
+        return {id, ...data}
+      })
+      resolve(comments)
+  })
+
+})
+
+export const sendComment = (post, parentId, comment, uid) => new Promise((resolve, reject) => {
+
+  const newComment = {
+    comment: comment,
+    user: uid,
+    parentId: (parentId == null) ? null : parentId,
+    timestamp: serverTimestamp(),
+  }
+
+  addDoc(collection(db, 'posts', post?.id, 'comments'),{
+    ...newComment
+  }).then((res) => {
+    resolve({
+      ...newComment,
+      id: res.id
+    })
+  })
+  updateDoc(doc(db, 'posts', post?.id), {
+    "commentsCount": increment(1)
+  })
+})
+
+export const deleteComment = (postId, commentId) => new Promise((resolve, reject) => {
+
+  deleteDoc(doc(db, 'posts', postId, 'comments', commentId)).then(() => {
+    updateDoc(doc(db, 'posts', postId), {
+      "commentsCount": increment(-1)
+    })
+    .then(() => {
+      resolve()
+    })
+  })
+})
+
+export const updateComment = (postId, comment, commentId) => new Promise((resolve, reject) => {
+  
+  updateDoc(doc(db, 'posts', postId, 'comments', commentId), {
+    "comment": comment
+  })
+  .then(() => {
+    resolve()
+  })
+
+})

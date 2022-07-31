@@ -13,6 +13,7 @@ import {selectUser} from "../../../features/userSlice"
 import {useSelector} from "react-redux";
 import { throttle } from 'throttle-debounce';
 import { getTimeSincePost } from '../../../services/helpers';
+import LargePost from '../../PostFocus/LargePost';
 
 export default function Post({post}) {
 
@@ -21,6 +22,7 @@ export default function Post({post}) {
     state: null,
     counter: post?.data.votesCount,
   })
+  const [modalOpen, setModalOpen] = useState(false)
 
   const user = useUser(post?.data.user).data
   const currentUser = useSelector(selectUser)
@@ -75,6 +77,7 @@ export default function Post({post}) {
   );
 
   return (
+    <>
     <Card sx={{height: 400, minWidth: 400, alignSelf: 'center', borderRadius: 2}}>
         <div className='container'>
             <div className='informationContainer'>
@@ -123,7 +126,7 @@ export default function Post({post}) {
                 </div>
             </div>
             <div className='descriptionContainer'>
-                <p>{post?.data?.details}</p>
+                <div className='description'>{post?.data?.details}</div>
             </div>
             <div className='buttonsContainer'>
                 <div className='bookmarkContainer'>
@@ -136,7 +139,7 @@ export default function Post({post}) {
                     </IconButton>
                 </div>
                 <div className='commentContainer'>
-                    <Button size="small">
+                    <Button size="small" onClick={() => setModalOpen(true)}>
                         <div className='comment'>
                             <ChatBubbleRoundedIcon sx={{color: indigo['A100']}} fontSize="medium" />
                             <p className='commentText'>Discuss</p>
@@ -146,5 +149,16 @@ export default function Post({post}) {
             </div>
         </div >
     </Card>
+    {modalOpen && <LargePost 
+        isOpen={modalOpen} 
+        setModalOpen={setModalOpen} 
+        post={post} 
+        user={user}
+        bookmarked={bookmarked}
+        handleUpdateBookmark={handleUpdateBookmark}
+        vote={vote}
+        handleUpdateVote={handleUpdateVote}
+    />}
+    </>
   )
 }
