@@ -8,6 +8,7 @@ import { getFeed } from '../../services/posts';
 import { useSelector } from 'react-redux';
 import { selectPostsType } from "../../features/postsTypeSlice";
 import { getHotValue } from '../../services/helpers';
+import { selectSearch } from '../../features/searchSlice';
 
 export default function Feed() {
 
@@ -15,6 +16,7 @@ export default function Feed() {
   const [hotPosts, setHotPosts] = useState(null)
   const [currentPosts, setCurrentPosts] = useState(null)
   const currentPostsType = useSelector(selectPostsType)
+  const currentSearchState = useSelector(selectSearch)
 
   useEffect(() => {
     getFeed(setPosts)
@@ -46,6 +48,23 @@ export default function Feed() {
       setCurrentPosts(posts)
     }
   }, [currentPostsType])
+
+  useEffect(() => {
+    if (currentSearchState != null && currentSearchState?.searching == true) {
+      if (currentPostsType == 'hot') { 
+        setCurrentPosts(hotPosts?.filter(post => post?.data.title.toLowerCase().includes(currentSearchState.searchWord) || post?.data.tag.toLowerCase().includes(currentSearchState.searchWord)))
+      }else if (currentPostsType == 'new'){
+        setCurrentPosts(posts?.filter(post => post?.data.title.toLowerCase().includes(currentSearchState.searchWord) || post?.data.tag.toLowerCase().includes(currentSearchState.searchWord)))
+      }
+    }
+    else {
+      if (currentPostsType == 'hot') { 
+        setCurrentPosts(hotPosts)
+      }else if (currentPostsType == 'new'){
+        setCurrentPosts(posts)
+      }
+    }
+  }, [currentSearchState])
 
   return (
     <div className='container'>

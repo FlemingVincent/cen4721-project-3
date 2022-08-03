@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Header.css';
 import SearchIcon from '@mui/icons-material/Search';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -10,12 +10,15 @@ import { logout, selectUser } from '../../features/userSlice';
 import {Link} from 'react-router-dom'
 import {useNavigate} from 'react-router-dom'
 import LogoutIcon from '@mui/icons-material/Logout';
+import { changeSearch } from '../../features/searchSlice';
 
 export default function Header() {
     
     const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
     const navigate = useNavigate()
+
+    const [searchTerm, setSearchTerm] = useState('');
 
     const logoutOfApp = () => {
         dispatch(logout());
@@ -25,7 +28,22 @@ export default function Header() {
     const handleProfileNavigation = () => {
         console.log("current user is: ", currentUser);
         navigate('/profile/' + currentUser?.displayName.replace(/\s/g , "-"), {state: {user: currentUser}})
-      }
+    }
+
+    useEffect(() => {
+        if (searchTerm.length >0 ) {
+            dispatch(changeSearch({
+                searching: true,
+                searchWord: searchTerm.toLowerCase(),
+            }))
+        }
+        else {
+            dispatch(changeSearch({
+                searching: false,
+                searchWord: null,
+            }))
+        }
+    }, [searchTerm])
 
     if(!currentUser){
         return (
@@ -56,7 +74,11 @@ export default function Header() {
                         alt=""/>
                     <div className="header_search">
                         <SearchIcon/>
-                        <input type="text"/>
+                        <input 
+                            type="text" 
+                            placeholder="Search..." 
+                            onChange={event => {setSearchTerm(event.target.value)}}
+                        />
                     </div>
                     <h2>International Gator Job Board</h2>
                 </div>
