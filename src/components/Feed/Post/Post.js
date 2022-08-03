@@ -149,7 +149,7 @@ export default function Post({post}) {
                 </div>
             </div>
             <div className='descriptionContainer'>
-                <div className='description'>{post?.data?.details}</div>
+                <p className='description'>{post?.data?.details}</p>
             </div>
             <div className='buttonsContainer'>
                 <div className='bookmarkContainer'>

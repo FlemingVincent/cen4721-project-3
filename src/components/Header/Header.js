@@ -23,6 +23,7 @@ export default function Header() {
     };
 
     const handleProfileNavigation = () => {
+        console.log("current user is: ", currentUser);
         navigate('/profile/' + currentUser?.displayName.replace(/\s/g , "-"), {state: {user: currentUser}})
       }
 

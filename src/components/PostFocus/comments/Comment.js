@@ -12,6 +12,7 @@ import CommentForm from './CommentForm';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../../features/userSlice';
 import { indigo } from '@mui/material/colors';
+import { useNavigate } from 'react-router-dom';
 
 export default function Comment({comment, replies, deleteComment, addComment, activeComment, setActiveComment, parentId = null, updateComment}) {
 
@@ -28,15 +29,22 @@ export default function Comment({comment, replies, deleteComment, addComment, ac
   const isEditing = activeComment && activeComment.type === 'editing' && activeComment.id === comment.id
   const replyId = parentId ? parentId : comment.id
 
+  let navigate = useNavigate()
+
+  const handleProfileNavigation = () => {
+    navigate('/profile/' + user?.displayName.replace(/\s/g , "-"), {state: {user: user}})
+  }
+
   return (
     <div className={(comment.parentId == null) ? 'fullCommentContainerParent' : 'fullCommentContainerChild'}>
         <div className='commentInfoContainer'>
             <div className='commentPicture'>
-                <img className='picture' src={user?.photoUrl} />
+                {user?.photoUrl != null && <input type="image" id="saveform" src={user?.photoUrl} className='picture' onClick={handleProfileNavigation}/>}
+                {user?.photoUrl == null && <input type="image" id="saveform" src={'https://cdn.wallpapersafari.com/8/21/es5Bd6.jpg'} className='picture' onClick={handleProfileNavigation}/>}
             </div>
-            <div className='commentUserName'>
+            <button className='commentUserName2' onClick={handleProfileNavigation}>
                 {user?.displayName}
-            </div>
+            </button>
             <div className='interpunct'>
                 ·
             </div>

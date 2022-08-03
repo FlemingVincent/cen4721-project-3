@@ -42,7 +42,6 @@
     border-bottom: 1px solid gray;
     margin-top: 1%;
 }
-.translateFix{
-    /* transform: scale(2); 
-    zoom: 0.5 */
+.description4{
+    white-space: pre-line;
 }

@@ -12,6 +12,7 @@ import { getComments, sendComment } from '../../services/posts';
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../features/userSlice';
 import Comments from './comments/Comments';
+import { useNavigate } from 'react-router-dom';
 
 export default function LargePost({isOpen, setModalOpen, post, user, bookmarked, handleUpdateBookmark, vote, handleUpdateVote}) {
 
@@ -19,6 +20,12 @@ export default function LargePost({isOpen, setModalOpen, post, user, bookmarked,
   const currentUser = useSelector(selectUser)
 
   const handleClose = () => setModalOpen(false);
+
+  let navigate = useNavigate();
+
+  const handleProfileNavigation = () => {
+    navigate('/profile/' + user?.displayName.replace(/\s/g , "-"), {state: {user: user}})
+  }
 
   return (
     <Modal
@@ -46,15 +53,13 @@ export default function LargePost({isOpen, setModalOpen, post, user, bookmarked,
                         </div>
                         <div className='userInfo'>
                             <div className='pictureContainer'>
-                            <img 
-                                src={user?.photoUrl} 
-                                className='profilePic'
-                            />
+                            {user?.photoUrl != null && <input type="image" id="saveform" src={user?.photoUrl} className='profilePic' onClick={handleProfileNavigation}/>}
+                            {user?.photoUrl == null && <input type="image" id="saveform" src={'https://cdn.wallpapersafari.com/8/21/es5Bd6.jpg'} className='profilePic' onClick={handleProfileNavigation}/>}
                             </div>
                             <div className='extraInfo'>
-                                <div className='userName'>
+                                <button class="astext2" onClick={handleProfileNavigation}>
                                     {user?.displayName}
-                                </div>
+                                    </button>
                                 <div className='date'>
                                     {post?.data?.timestamp != null ? 
                                         getTimeSincePost(post?.data?.timestamp)
@@ -74,7 +79,7 @@ export default function LargePost({isOpen, setModalOpen, post, user, bookmarked,
                     </div>
                 </div>
                 <div className='descriptionContainer2'>
-                    <p>{post?.data?.details}</p>
+                    <p className='description4'>{post?.data?.details}</p>
                 </div>
                 <div className='buttonsContainer2'>
                     <div className='bookmarkContainer'>

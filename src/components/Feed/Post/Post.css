@@ -87,22 +87,25 @@
 }
 .descriptionContainer{
     display: flex;
-    flex: 0.7;
+    flex: 0.63;
     padding-top: 3.5%;
-    padding-bottom: 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
+    min-width: 0;
 }
 .description{
     display: flex;
     flex: 1;
     text-overflow: ellipsis;
     overflow: hidden;
+    display: inline-block;
+    white-space: pre-line;
+    min-width: 0
 }
 .buttonsContainer{
     display: flex;
-    flex: 0.2;
+    flex: 0.25;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;

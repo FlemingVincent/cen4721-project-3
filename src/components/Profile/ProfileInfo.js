@@ -135,9 +135,9 @@ export default function ProfileInfo({user, posts}) {
                 {fieldMode == false ? 
                     <div className='aboutContentContainer'>
                         {user?.about != null ?
-                            <div className='aboutContent'>
+                            <p className='aboutContent'>
                                 {user?.about}
-                            </div>
+                            </p>
                             :
                             <div className='noAbout'>
                                 {isCurrentUser ? 

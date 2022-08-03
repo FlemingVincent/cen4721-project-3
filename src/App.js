@@ -11,6 +11,7 @@ import BeatLoader from "react-spinners/BeatLoader";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import Bookmarks from "./pages/bookmarks";
 import Profile from "./pages/profile";
+import { getUserById } from "./services/user";
 
 function App() {
 
@@ -22,16 +23,10 @@ function App() {
   useEffect(() =>{
     auth.onAuthStateChanged(userAuth => {
       if (userAuth) {
-        //user is logged in
-        dispatch(
-          login({
-            email: userAuth.email,
-            uid: userAuth.uid,
-            displayName: userAuth.displayName,
-            photoUrl: userAuth.photoURL,
-          })
-          );
+        getUserById(userAuth.uid) .then((res) => {
+          dispatch(login(res))
           setLoaded(true)
+        })
       } else{
         //user is logged out
         dispatch(logout());
