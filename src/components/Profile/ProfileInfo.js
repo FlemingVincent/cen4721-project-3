@@ -115,7 +115,8 @@ export default function ProfileInfo({user, posts}) {
                             <div className='statContainer2'>
                                 <QueryStatsOutlinedIcon sx={{fontSize: 25, color: '#343434'}}/>
                                 <div className='statsText'>
-                                    {"+" + stats[2]}
+                                    {stats[2] >= 0 ? '+' : '-'}
+                                    {Math.abs(stats[2])}
                                 </div>
                             </div>
                         </div>}
