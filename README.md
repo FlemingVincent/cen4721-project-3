@@ -10,6 +10,11 @@ Our web application, International Gator Job Board, provides an online platform 
 * Master - Old Version with bugs 
 * Webscraping - Original Version of the app 
 
+# Technology/Framework Used
+* React.js 
+* Firebase 
+* Redux 
+
 # Team Members
 
 Zander Bournand, Vincent Fleming, Shravya Iruvanti, Yiru Mu, and Mitchell Thanath
