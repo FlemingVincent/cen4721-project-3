@@ -6,9 +6,9 @@ Our web application, International Gator Job Board, provides an online platform 
  ![alt text](https://cdn.discordapp.com/attachments/978315959318220860/1004518073853820949/unknown.png)
 
 # Repo/Branch Navigation 
-Main - Final Version of our app 
-Master - Old Version with bugs 
-Webscraping - Original Version of the app 
+## Main - Final Version of our app 
+## Master - Old Version with bugs 
+## Webscraping - Original Version of the app 
 
 # Team Members
 
